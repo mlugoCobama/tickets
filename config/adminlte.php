@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'COBAMA - Sistema de Tickets',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<b>COBAMA</b>',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -267,34 +267,40 @@ return [
 
     'menu' => [
         // Navbar items:
-        /*[
-            'type'         => 'navbar-search',
-            'text'         => 'search',
-            'topnav_right' => true,
-        ],
-        [
-            'type'         => 'fullscreen-widget',
-            'topnav_right' => true,
-        ],
-        // Sidebar items:
-        [
-            'type' => 'sidebar-menu-search',
-            'text' => 'search',
-        ],
-        [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
-        ],*/
         [
             'text'        => 'Tickets',
-            'url'         => 'admin/pages',
+            'url'         => 'tickets',
             'icon'        => 'far fa-fw fa-file',
+            'classes'     => 'menu-principal',
+            'id'          => 'tickets'
         ],
         [
             'text' => 'Inventario',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
+            'url'  => 'inventario',
+            'icon' => 'fa-solid fa-computer',
+            'classes' => 'menu-principal',
+            'id'    => 'inventario'
+        ],
+        [
+            'text'    => 'Configuración',
+            'icon'    => 'fa-solid fa-gear',
+            'submenu' => [
+                [
+                    'text' => 'Estatus',
+                    'url'  => 'estatus',
+                    'icon' => 'fa-solid fa-circle-check'
+                ],
+                [
+                    'text' => 'Usuarios',
+                    'url'  => 'usuarios',
+                    'icon' => 'fa-solid fa-users'
+                ],
+                [
+                    'text' => 'Areas',
+                    'url'  => 'areas',
+                    'icon' => 'fa-solid fa-layer-group'
+                ],
+            ],
         ]
     ],
 

@@ -11,9 +11,12 @@
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
+    <!--link rel="stylesheet" href="/css/admin_custom.css"-->
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+
+<script src="https://kit.fontawesome.com/7fe718abe6.js" crossorigin="anonymous"></script>
+
+
 @stop

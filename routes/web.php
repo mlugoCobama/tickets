@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TicketsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,8 +22,8 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Auth::routes();
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/mail', [App\Http\Controllers\mailConnectionController::class, 'index']);
+
+Route::resource('tickets', TicketsController::class);
