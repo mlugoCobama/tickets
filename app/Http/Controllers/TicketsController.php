@@ -3,15 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TicketsRequest;
+use App\Http\Requests\UpdateTicketRequest;
 use App\Models\AreasModel;
 use App\Models\ComentariosModel;
 use App\Models\CorreosModel;
 use App\Models\EstatusModel;
 use App\Models\TicketsModel;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 
 class TicketsController extends Controller
@@ -112,9 +114,12 @@ class TicketsController extends Controller
 
         $correo = $this->correos->with('ticket')->where('id', $id)->get();
 
-        $comentarios = $this->comentarios->where( 'ticket_id',  $correo->first()->ticket()->first()->id )->get();
+        $ticket = $correo->first()->ticket()->first();
+
+        $comentarios = $this->comentarios->where( 'ticket_id',  $ticket->id )->orderby('created_at', 'desc')->get();
 
         return view("tickets.show", compact('correo', 'areas', 'tecnicos', 'comentarios', 'estatus'));
+
     }
 
     /**
@@ -124,9 +129,22 @@ class TicketsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateTicketRequest $request, $id)
     {
-        //
+        DB::table('ticket_estatus')->insert([
+            'ticket_id' => $id,
+            'estatus_id' => $request->estatus,
+            'user_id' => Auth::id(),
+            'created_at' => date('Y-m-d H:i:s')
+        ]);
+
+        $this->comentarios::create([
+            'comentario' => $request->comentario,
+            'user_id' =>  Auth::id(),
+            'estatus_id' => $request->estatus,
+            'ticket_id' =>  $id,
+            'created_at' =>  date('Y-m-d H:i:s'),
+        ]);
     }
 
     /**
@@ -138,22 +156,5 @@ class TicketsController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    private function procesar_data( $datos )
-    {
-        for ($i=0; $i < count( $datos ); $i++)
-        {
-            if ($datos[$i]['value'] != '')
-            {
-                $data[ $datos[$i]['name'] ] = $datos[$i]['value'];
-            }
-            else
-            {
-                return 'error';
-                exit;
-            }
-        }
-        return array_chunk( $data, 1 );
     }
 }

@@ -24,4 +24,5 @@ class EstatusModel extends Model
     {
         return $query->where('activo', 1);
     }
+
 }

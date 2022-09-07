@@ -115,9 +115,15 @@
                             <div class="col-sm-9">
                                 <select name="estatus" id="estatus" class="form-control form-control-sm" >
                                     <option value="">Elige una opción</option>
-                                    @foreach ($estatus as $e)
-                                        <option value="{{$e->id}}"{{ $e->id == 1 ? 'selected' : ''  }}>{{$e->nombre}}</option>
-                                    @endforeach
+                                    @if ($correo->first()->ticket()->exists())
+                                        @foreach ($estatus as $e)
+                                            <option value="{{$area->id}}" {{ $comentarios->first()->estatus_id == $e->id ? 'selected' : '' }} >{{ $e->nombre }}</option>
+                                        @endforeach
+                                    @else
+                                        @foreach ($estatus as $e)
+                                            <option value="{{$e->id}}"{{ $e->id == 1 ? 'selected' : ''  }}>{{$e->nombre}}</option>
+                                        @endforeach
+                                    @endif
                                 </select>
                             </div>
                         </div>
@@ -165,7 +171,8 @@
 
 
                                 <div class="direct-chat-text">
-                                   {{ $comentario->comentario }}
+                                    <p>Estatus: {{ $comentario->estatus()->first()->nombre }}</p>
+                                    <p>{{ $comentario->comentario }}</p>
                                 </div>
 
                             </div>

@@ -14,9 +14,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        \App\Models\CorreosModel::factory(20)->create();
+        /*
         $this->call([
             //AreasSeeder::class
             EstatusSeeder::class
         ]);
+        */
     }
 }
