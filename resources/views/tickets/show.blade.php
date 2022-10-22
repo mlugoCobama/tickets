@@ -32,14 +32,7 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, deleniti nulla. Expedita hic praesentium eaque illum aperiam, soluta ratione at libero necessitatibus sapiente provident molestias amet dolor magni exercitationem quas.</p>
-                    <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, deleniti nulla. Expedita hic praesentium eaque illum aperiam, soluta ratione at libero necessitatibus sapiente provident molestias amet dolor magni exercitationem quas.</p>
-                    <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, deleniti nulla. Expedita hic praesentium eaque illum aperiam, soluta ratione at libero necessitatibus sapiente provident molestias amet dolor magni exercitationem quas.</p>
-                    <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, deleniti nulla. Expedita hic praesentium eaque illum aperiam, soluta ratione at libero necessitatibus sapiente provident molestias amet dolor magni exercitationem quas.</p>
-                    <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, deleniti nulla. Expedita hic praesentium eaque illum aperiam, soluta ratione at libero necessitatibus sapiente provident molestias amet dolor magni exercitationem quas.</p>
-                    <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, deleniti nulla. Expedita hic praesentium eaque illum aperiam, soluta ratione at libero necessitatibus sapiente provident molestias amet dolor magni exercitationem quas.</p>
-                    <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam, deleniti nulla. Expedita hic praesentium eaque illum aperiam, soluta ratione at libero necessitatibus sapiente provident molestias amet dolor magni exercitationem quas.</p>
-
+                    {{ $correo->first()->mensaje  }}
                 </div>
             </div>
         </div>
@@ -117,7 +110,7 @@
                                     <option value="">Elige una opción</option>
                                     @if ($correo->first()->ticket()->exists())
                                         @foreach ($estatus as $e)
-                                            <option value="{{$area->id}}" {{ $comentarios->first()->estatus_id == $e->id ? 'selected' : '' }} >{{ $e->nombre }}</option>
+                                            <option value="{{$e->id}}" {{ $comentarios->first()->estatus_id == $e->id ? 'selected' : '' }} >{{ $e->nombre }}</option>
                                         @endforeach
                                     @else
                                         @foreach ($estatus as $e)
@@ -128,6 +121,18 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="mb-3 row">
+                            <label for="estatus" class="col-sm-3 col-form-label">Reasignar Ticket:</label>
+                            <div class="col-sm-9 form-check">
+                                <input type="checkbox" class="form-check-input" id="reasingar" >
+                                <label class="form-check-label" for="reasignar">Solicitar Reasignación</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col"></div>
                 </div>
                 <div class="row">
                     <div class="col">

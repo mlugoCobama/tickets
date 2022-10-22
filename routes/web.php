@@ -24,6 +24,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/mail', [App\Http\Controllers\mailConnectionController::class, 'index']);
+Route::get('/confirmar-reasignacion/{id}', [App\Http\Controllers\mailConnectionController::class, 'show']);
 
 Route::resource('tickets', TicketsController::class);

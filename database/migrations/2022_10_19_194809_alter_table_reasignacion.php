@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('comentarios', function (Blueprint $table) {
-            $table->bigInteger('estatus_id')->unsigned()->after('user_id');
+        Schema::table('reasignacion', function (Blueprint $table) {
+            $table->bigInteger('estatus_id')->unsigned()->after('ticket_id');
             $table->foreign('estatus_id')->references('id')->on('estatus')->onDelete('cascade')->onUpdate('cascade');
         });
     }
@@ -26,7 +26,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('comentarios', function (Blueprint $table) {
+        Schema::table('reasignacion', function (Blueprint $table) {
             $table->dropColumn(['estatus_id']);
         });
     }
