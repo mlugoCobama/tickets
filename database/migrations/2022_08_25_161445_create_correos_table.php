@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('correos', function (Blueprint $table) {
             $table->id();
-            $table->string('id_mensaje');
+            $table->string('id_mensaje')->nullable(true);
             $table->string('asunto');
             $table->string('enviado');
             $table->longText('mensaje');
