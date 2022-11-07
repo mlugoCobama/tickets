@@ -55,34 +55,28 @@
             <div class="card card-outline card-primary">
                 <div class="card-header">
                     <h3 class="card-title">Tickets</h3>
-                    <div class="card-tools">
-                        <div class="input-group input-group-sm" style="width: 150px;">
-                            <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-default">
-                                    <i class="fas fa-search" ></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
-                <div class="card-body table-responsive p-0" style="height: 300px;">
-                    <table class="table table-head-fixed text-nowrap">
+                <div class="card-body">
+                    <table id="tableTickets" class="table table-head-fixed text-nowrap">
                         <thead>
                             <tr >
+                                <th class="text-center">Ver Detalle</th>
                                 <th>ID</th>
                                 <th>Enviado Por</th>
                                 <th>Asunto</th>
                                 <th>Fecha </th>
                                 <th>Asignado A</th>
-                                <th>Estatus</th>
-                                <th class="text-center">Ver Detalle</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($allCorreos as $correo)
                                 <tr>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-info btn-sm verDetalle" data-id="{{ $correo->id }}">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </button>
+                                    </td>
                                     <td>{{ $correo->id }}</td>
                                     <td>{{ $correo->enviado }}</td>
                                     <td>{{ $correo->asunto }}</td>
@@ -93,12 +87,6 @@
                                         @else
                                             Sin asignación
                                         @endif
-                                    </td>
-                                    <td></td>
-                                    <td class="text-center">
-                                        <button type="button" class="btn btn-info btn-sm verDetalle" data-id="{{ $correo->id }}">
-                                            <i class="fa-solid fa-eye"></i>
-                                        </button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -122,6 +110,6 @@
 
 
 <script src="https://kit.fontawesome.com/7fe718abe6.js" crossorigin="anonymous"></script>
-<script src="../../../build/assets/tickets.js"></script>
+<script src="../../../vendor/tickets.js"></script>
 
 @stop
