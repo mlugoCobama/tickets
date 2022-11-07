@@ -67,11 +67,7 @@ $(function() {
                 'success'
             );
 
-            let url = currentURL+"/";
-
-            $.get(url, function(data, textStatus, jqXHR) {
-                $(".viewTickets").html(data);
-            });
+            window.location.reload();
 
         }).fail(function(data) {
             printErrorMsg(data.responseJSON.errors);
@@ -121,6 +117,7 @@ $(function() {
                 'El registro ha sido guardado.',
                 'success'
             )
+            window.location.reload();
         }).fail(function(data) {
             printErrorMsg(data.responseJSON.errors);
         });
