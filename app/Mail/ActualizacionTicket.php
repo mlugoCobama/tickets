@@ -32,8 +32,8 @@ class ActualizacionTicket extends Mailable
                 ->subject('Actualización a tu solicitud')
                 ->markdown('mail.actualizacion')
                 ->with([
-                    'estatus' => $this->comentarios->first()->estatus()->first()->nombre,
-                    'comentario' => $this->comentarios->first()->comentario
+                    'estatus' => $this->comentarios->estatus()->first()->nombre,
+                    'comentario' => $this->comentarios->comentario
                 ]);
     }
 }

@@ -100,7 +100,7 @@ class TicketsController extends Controller
          * Se le envia correo al tecnico asignado
          */
         $tecnico = $this->user->where('id', $request->asignadoA)->first();
-        Mail::to('ingmchlugo@gmail.com')->send( new NotificacionTecnicoTicket($tecnico, $ticket) );
+        Mail::to($tecnico->email)->send( new NotificacionTecnicoTicket($tecnico, $ticket) );
         /**
          * Redirigimos a la ruta index
          */
@@ -145,6 +145,10 @@ class TicketsController extends Controller
     public function update(UpdateTicketRequest $request, $id)
     {
         /**
+         * Recuperamos el ticket
+         */
+        $ticket = $this->tickets->where('id', $id)->first();
+        /**
          * Validamos si se hara la reasignacion del ticket
          */
         if ($request->reasignar == 'true')
@@ -178,16 +182,28 @@ class TicketsController extends Controller
                 'created_at' => date("Y-m-d H:i:s")
             ]);
             /**
+             * obtenemos los correos que son administradores
+             */
+            $correosAdministradores = $this->user
+                                            ->select('email')
+                                            ->where('tipo', 1)
+                                            ->where('activo', 1)
+                                            ->get();
+            /**
              * Se envia la notificacion a los administradores del sistema
              */
-            Mail::to('ingmchlugo@gmail.com')->send(new ReasignacionTicket( $id, $solicitante, $request->comentario, $tecnicoAsignado, $area, $reasignacion ));
+            Mail::to($correosAdministradores->toArray())->send(new ReasignacionTicket( $id, $solicitante, $request->comentario, $tecnicoAsignado, $area, $reasignacion ));
         }
         else
         {
             /**
+             * Recuperamos el correo
+             */
+            $correo = $this->correos->where('id', $ticket->correo_id)->first();
+            /**
              * Se guarda el comentario del ticket
              */
-            $comentario = $this->comentarios::create([
+            $this->comentarios::create([
                 'comentario' => $request->comentario,
                 'user_id' =>  Auth::id(),
                 'estatus_id' => $request->estatus,
@@ -195,9 +211,13 @@ class TicketsController extends Controller
                 'created_at' =>  date('Y-m-d H:i:s'),
             ]);
             /**
+             * obtenemos el ultimo comentario
+             */
+            $comentario = $this->comentarios->where('ticket_id', $id)->orderBy('created_at', 'desc')->first();
+            /**
              * Se envia la actualizacion al usuario
              */
-            Mail::to('mchlugo@hotmail.com')->send( new ActualizacionTicket( $comentario) );
+            Mail::to($correo->enviado)->send( new ActualizacionTicket( $comentario) );
         }
 
     }
