@@ -5,51 +5,6 @@
 
 @section('content')
 <br>
-    <!--div class="row">
-        <div class="col-12">
-            <div class="card card-outline card-primary">
-                <div class="card-header">
-                    <h3 class="card-title">Mis Tickets</h3>
-                    <div class="card-tools">
-                        <div class="input-group input-group-sm" style="width: 150px;">
-                            <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-default">
-                                    <i class="fas fa-search" ></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-body table-responsive p-0" style="height: 300px;">
-                    <table class="table table-head-fixed text-nowrap">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Enviado Por</th>
-                                <th>Asunto</th>
-                                <th>Fecha </th>
-                                <th>Mensaje</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($misCorreos as $correo)
-                                <tr>
-                                    <td>{{ $correo->id }}</td>
-                                    <td>{{ $correo->enviado }}</td>
-                                    <td>{{ $correo->asunto }}</td>
-                                    <td>{{ $correo->created_at }}</td>
-                                    <td>{{ $correo->mensaje }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div-->
-
     <div class="row viewTickets">
         <div class="col-12">
             <div class="card card-outline card-primary">

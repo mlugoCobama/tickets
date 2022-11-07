@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\TicketsController;
+use App\Http\Controllers\EstatusController;
+use App\Http\Controllers\AreasController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,3 +30,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/confirmar-reasignacion/{id}', [App\Http\Controllers\mailConnectionController::class, 'show']);
 
 Route::resource('tickets', TicketsController::class);
+Route::resource('estatus', EstatusController::class);
+Route::resource('areas', AreasController::class);
+Route::resource('usuarios', UserController::class);
