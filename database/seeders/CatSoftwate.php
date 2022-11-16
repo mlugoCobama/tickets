@@ -17,10 +17,12 @@ class CatSoftwate extends Seeder
     public function run()
     {
         DB::table('cat_software')->insert([
-            'tipo' => 'Sistema Operativo'
+            'tipo' => 'Sistema Operativo',
+            'icono' => 'fab fa-microsoft'
         ]);
         DB::table('cat_software')->insert([
-            'tipo' => 'Office'
+            'tipo' => 'Office',
+            'icono' => 'fas fa-file-word'
         ]);
     }
 }

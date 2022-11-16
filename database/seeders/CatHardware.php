@@ -16,37 +16,48 @@ class CatHardware extends Seeder
     public function run()
     {
         DB::table('cat_hardware')->insert([
-            'tipo' => 'CPU'
+            'tipo' => 'CPU',
+            'icono' => 'fas fa-server fa-xs'
         ]);
         DB::table('cat_hardware')->insert([
-            'tipo' => 'Monitor'
+            'tipo' => 'Monitor',
+            'icono' => 'fas fa-tv'
         ]);
         DB::table('cat_hardware')->insert([
-            'tipo' => 'Teclado'
+            'tipo' => 'Teclado',
+            'icono' => 'fas fa-keyboard'
         ]);
         DB::table('cat_hardware')->insert([
-            'tipo' => 'Mouse'
+            'tipo' => 'Mouse',
+            'icono' => 'fas fa-mouse'
         ]);
         DB::table('cat_hardware')->insert([
-            'tipo' => 'Diadema'
+            'tipo' => 'Diadema',
+            'icono' => 'fas fa-headphones'
         ]);
         DB::table('cat_hardware')->insert([
-            'tipo' => 'Regulador/No Break'
+            'tipo' => 'Regulador',
+            'icono' => 'fas fa-plug'
         ]);
         DB::table('cat_hardware')->insert([
-            'tipo' => 'Telefono Fijo'
+            'tipo' => 'Telefono Fijo',
+            'icono' => 'fas fa-phone'
         ]);
         DB::table('cat_hardware')->insert([
-            'tipo' => 'Telefono Movil'
+            'tipo' => 'Telefono Movil',
+            'icono' => 'fas fa-mobile-alt'
         ]);
         DB::table('cat_hardware')->insert([
-            'tipo' => 'Multifuncional'
+            'tipo' => 'Multifuncional',
+            'icono' => 'fas fa-print'
         ]);
         DB::table('cat_hardware')->insert([
-            'tipo' => 'Tableta'
+            'tipo' => 'Tableta',
+            'icono' => 'fas fa-tablet-alt'
         ]);
         DB::table('cat_hardware')->insert([
-            'tipo' => 'Otro'
+            'tipo' => 'Otro',
+            'icono' => 'fas fa-robot'
         ]);
     }
 }
