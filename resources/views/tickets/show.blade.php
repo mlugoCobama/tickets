@@ -32,7 +32,7 @@
             </div>
             <div class="row">
                 <div class="col">
-                    {{ $correo->first()->mensaje  }}
+                    {{ $correo->first()->mensaje_html }}
                 </div>
             </div>
         </div>
