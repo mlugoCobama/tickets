@@ -4,6 +4,7 @@ use App\Http\Controllers\TicketsController;
 use App\Http\Controllers\EstatusController;
 use App\Http\Controllers\AreasController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\InventariosController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,3 +34,4 @@ Route::resource('tickets', TicketsController::class);
 Route::resource('estatus', EstatusController::class);
 Route::resource('areas', AreasController::class);
 Route::resource('usuarios', UserController::class);
+Route::resource('inventario', InventariosController::class);

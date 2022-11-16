@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->string('version');
             $table->string('licencia');
-            $table->string('no_serie');
             $table->longText('observaciones')->nullable(true);
             $table->bigInteger('cat_software_id')->unsigned();
             $table->bigInteger('usuario_empresa_id')->unsigned();
