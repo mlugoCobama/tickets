@@ -7,7 +7,7 @@
                 Inventario ID: {{$id}}
             </h3>
             <div class="card-tools">
-                <button type="button" class="btn btn-info btn-sm editInventario"><i class="fa-solid fa-file-contract"></i></i> Generar Resguardo</button>
+                <button type="button" class="btn btn-info btn-sm generarResguardo"><i class="fa-solid fa-file-contract"></i></i> Generar Resguardo</button>
                 <button type="button" class="btn btn-primary btn-sm regresar"><i class="fa-solid fa-angles-left"></i> Regresar</button>
                 <input type="hidden" name="idSeleccionado" id="idSeleccionado" value="{{$id}}">
 

@@ -187,7 +187,6 @@ $(function() {
         let _token = $("input[name=_token]").val();
         let _method = 'PUT';
 
-
         $.post(url + "/" + id, {
             formUsuario: formUsuario,
             formCPU: formCPU,
@@ -268,6 +267,14 @@ $(function() {
         });
     });
 
+    $(document).on('click', '.generarResguardo', function(event) {
+
+        let id =  $("#idSeleccionado").val();
+        let url = currentURL + "/resguardo/" + id ;
+
+        window.open(url, '_blank');
+
+    });
     /**
      * Funcion para mostrar los errores de los formularios
      */

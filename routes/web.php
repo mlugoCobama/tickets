@@ -29,6 +29,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/confirmar-reasignacion/{id}', [App\Http\Controllers\mailConnectionController::class, 'show']);
+Route::get('/inventario/resguardo/{id}', [App\Http\Controllers\PDFResguardoController::class, 'show']);
 
 Route::resource('tickets', TicketsController::class);
 Route::resource('estatus', EstatusController::class);
