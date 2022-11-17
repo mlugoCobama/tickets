@@ -1,7 +1,44 @@
 $(function() {
 
     let currentURL = window.location.href;
-    $("#tableInventarios").DataTable();
+    $("#tableInventarios").DataTable({
+        columnDefs: [
+            {
+                orderable: true,
+                targets: [1,4],
+            },
+            {
+                orderable: false,
+                targets: [0,2,3],
+            }
+
+        ],
+        language: {
+            url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-MX.json',
+        },
+        initComplete: function () {
+            this.api()
+                .columns([0,2,3])
+                .every(function () {
+                    var column = this;
+                    var select = $('<select><option value="">Selecciona una opción</option></select>')
+                        .appendTo($(column.header()).empty())
+                        .on('change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex($(this).val());
+
+                            column.search(val ? '^' + val + '$' : '', true, false).draw();
+                        });
+
+                    column
+                        .data()
+                        .unique()
+                        .sort()
+                        .each(function (d, j) {
+                            select.append('<option value="' + d + '">' + d + '</option>');
+                        });
+                });
+        },
+    });
     /**
      * Evento ver el detalle del ticket/correo
      */

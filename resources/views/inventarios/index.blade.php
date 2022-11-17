@@ -23,7 +23,7 @@
                 </div>
 
                 <div class="card-body">
-                    <table id="tableInventarios" class="table table-head-fixed text-nowrap">
+                    <table id="tableInventarios" class="table table-head-fixed text-nowrap table-striped table-sm">
                         <thead>
                             <tr >
                                 <th>Empresa</th>
@@ -44,6 +44,15 @@
                                 </tr>
                             @endforeach
                         </tbody>
+                        <tfoot>
+                            <tr >
+                                <th>Empresa</th>
+                                <th>Titular</th>
+                                <th>Area</th>
+                                <th>Puesto</th>
+                                <th>Fecha de asignación</th>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>

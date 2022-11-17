@@ -11,7 +11,7 @@ class TicketsModel extends Model
      * Campos que pueden ser modificados
      */
     protected $fillable = [
-        'correo_id', 'quien_asigna', 'asignado_a', 'fecha_asignacion', 'area_id', 'status', 'solucion', 'created_at', 'updated_at'
+        'correo_id', 'quien_asigna', 'asignado_a', 'cat_empresa_id', 'fecha_asignacion', 'area_id', 'status', 'solucion', 'created_at', 'updated_at'
     ];
     /**
      * Nombre de la tabla

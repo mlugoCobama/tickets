@@ -1,7 +1,7 @@
 <div class="col-12">
     <div class="card card-outline card-primary">
         <div class="card-header">
-            <h3 class="card-title">Ticket ID: <b> {{ $correo->first()->id }} </b> </h3>
+            <h3 class="card-title">Ticket ID: <b> {{ $correo->id }} </b> </h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-primary btn-sm" id="return">
                     <i class="fa-solid fa-angles-left"></i>
@@ -12,16 +12,16 @@
         <div class="card-body " >
             <div class="row">
                 <div class="col">
-                    <p><b> Asunto: </b> {{$correo->first()->asunto}}</p>
+                    <p><b> Asunto: </b> {{$correo->asunto}}</p>
                 </div>
 
             </div>
             <div class="row">
                 <div class="col">
-                    <p><b>Enviado por:</b> {{ $correo->first()->enviado }}</p>
+                    <p><b>Enviado por:</b> {{ $correo->enviado }}</p>
                 </div>
                 <div class="col">
-                    <p><b>Fecha de apertura: </b> {{ date('d-m-Y H:i:s', strtotime( $correo->first()->created_at )); }} </p>
+                    <p><b>Fecha de apertura: </b> {{ date('d-m-Y H:i:s', strtotime( $correo->created_at )); }} </p>
                 </div>
             </div>
             <div class="row">
@@ -32,7 +32,7 @@
             </div>
             <div class="row">
                 <div class="col">
-                    {!! $correo->first()->mensaje_html !!}
+                    {!! $correo->mensaje_html !!}
                 </div>
             </div>
         </div>
@@ -49,14 +49,28 @@
                 <div class="row">
                     <div class="col">
                         <div class="mb-3 row">
+                            <label for="cat_empresa_id" class="col-sm-3 col-form-label">Empresa *:</label>
+                            <div class="col-sm-9">
+                                <select name="cat_empresa_id" id="cat_empresa_id" class="form-control form-control-sm" {{ $ticket != NULL ? 'readonly disabled' : '' }} >
+                                    <option value="">Elige una opción</option>
+                                        @foreach ($empresas as $empresa)
+                                            <option {{ \Str::contains($correo->enviado, $empresa->dominio) ? 'selected' : '' }} value="{{ $empresa->id }}" >{{ $empresa->nombre }}</option>
+                                        @endforeach
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3 row">
                             <label for="asignadoA" class="col-sm-3 col-form-label">Asignado a *:</label>
                             <div class="col-sm-9">
-                                <select name="asignadoA" id="asignadoA" class="form-control form-control-sm" {{ $correo->first()->ticket()->exists() ? 'readonly disabled' : '' }} >
+                                <select name="asignadoA" id="asignadoA" class="form-control form-control-sm" {{ $ticket != NULL ? 'readonly disabled' : '' }} >
                                     <option value="">Elige una opción</option>
 
-                                    @if ($correo->first()->ticket()->exists())
+                                    @if ($ticket != NULL)
                                         @foreach ($tecnicos as $tecnico)
-                                            <option value="{{ $tecnico->id }}" {{ $correo->first()->ticket()->first()->asignado_a == $tecnico->id ? 'selected' : '' }} >{{ $tecnico->name }}</option>
+                                            <option value="{{ $tecnico->id }}" {{ $ticket->asignado_a == $tecnico->id ? 'selected' : '' }} >{{ $tecnico->name }}</option>
                                         @endforeach
                                     @else
                                         @foreach ($tecnicos as $tecnico)
@@ -67,29 +81,29 @@
                             </div>
                         </div>
                     </div>
+
+                </div><!--div.row-->
+                <div class="row">
                     <div class="col">
                         <p><b>Fecha de asignación: </b>
 
-                            @if ( $correo->first()->ticket()->exists() )
-                                {{ date('d-m-Y H:i:s', strtotime( $correo->first()->ticket()->first()->fecha_asignacion ));  }} </p>
+                            @if ( $ticket != NULL )
+                                {{ date('d-m-Y H:i:s', strtotime( $ticket->fecha_asignacion ));  }} </p>
                             @else
                                 Sin fecha de asignacion
                             @endif
                             <input type="hidden" name="asignadoPor" id="asignadoPor" value="{{ \Auth::user()->id }}">
-                            <input type="hidden" name="correoId" id="correoId" value="{{ $correo->first()->id }}">
+                            <input type="hidden" name="correoId" id="correoId" value="{{ $correo->id }}">
                     </div>
-
-                </div>
-                <div class="row">
                     <div class="col">
                         <div class="mb-3 row">
                             <label for="area" class="col-sm-3 col-form-label">Area *:</label>
                             <div class="col-sm-9">
-                                <select name="area" id="area" class="form-control form-control-sm" {{ $correo->first()->ticket()->exists() ? 'readonly disabled' : '' }}>
+                                <select name="area" id="area" class="form-control form-control-sm" {{ $ticket != NULL ? 'readonly disabled' : '' }}>
                                     <option value="">Elige una opción</option>
-                                    @if ($correo->first()->ticket()->exists())
+                                    @if ($ticket != NULL)
                                         @foreach ($areas as $area)
-                                            <option value="{{$area->id}}" {{ $correo->first()->ticket()->first()->area_id == $area->id ? 'selected' : '' }} >{{ $area->nombre }}</option>
+                                            <option value="{{$area->id}}" {{ $ticket->area_id == $area->id ? 'selected' : '' }} >{{ $area->nombre }}</option>
                                         @endforeach
                                     @else
                                         @foreach ($areas as $area)
@@ -102,13 +116,15 @@
                             </div>
                         </div>
                     </div>
+                </div><!--div.row-->
+                <div class="row">
                     <div class="col">
                         <div class="mb-3 row">
                             <label for="estatus" class="col-sm-3 col-form-label">Estatus *:</label>
                             <div class="col-sm-9">
                                 <select name="estatus" id="estatus" class="form-control form-control-sm" >
                                     <option value="">Elige una opción</option>
-                                    @if ($correo->first()->ticket()->exists())
+                                    @if ($ticket != NULL)
                                         @foreach ($estatus as $e)
                                             <option value="{{$e->id}}" {{ $comentarios->first()->estatus_id == $e->id ? 'selected' : '' }} >{{ $e->nombre }}</option>
                                         @endforeach
@@ -121,8 +137,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col">
                         <div class="mb-3 row">
                             <label for="estatus" class="col-sm-3 col-form-label">Reasignar Ticket:</label>
@@ -132,8 +146,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col"></div>
-                </div>
+                </div><!--div.row-->
                 <div class="row">
                     <div class="col">
                         <p><b>Comentarios *:</b></p>
@@ -150,7 +163,7 @@
                 </div>
             </form>
 
-            @if ( $correo->first()->ticket()->exists() )
+            @if ( $ticket != NULL )
                 <div class="col-12">
                     <nav class="navbar" style="background-color: #e3f2fd;">
                         <div class="container-fluid">
@@ -194,8 +207,8 @@
                     <i class="fa-solid fa-xmark"></i>
                     Cancelar
                 </button>
-                @if ( $correo->first()->ticket()->exists() )
-                    <input type="hidden" name="ticket_id" id="ticket_id" value="{{ $correo->first()->ticket()->first()->id }}">
+                @if ( $ticket != NULL )
+                    <input type="hidden" name="ticket_id" id="ticket_id" value="{{ $ticket->id }}">
                     <button type="button" class="btn btn-primary btn-sm ml-3" id="update">
                         <i class="fa-solid fa-floppy-disk"></i>
                         Actualizar

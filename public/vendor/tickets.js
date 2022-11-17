@@ -2,8 +2,45 @@ $(function() {
 
     let currentURL = window.location.href;
     $("#tableTickets").DataTable({
+        order: [[4, 'desc']],
+        columnDefs: [
+            {
+                orderable: true,
+                targets: [1],
+            },
+            {
+                orderable: false,
+                targets: [0,5,6],
+            }
+
+        ],
         responsive: true,
         scrollX: true,
+        language: {
+            url: 'https://cdn.datatables.net/plug-ins/1.11.5/i18n/es-MX.json',
+        },
+        initComplete: function () {
+            this.api()
+                .columns([5,6])
+                .every(function () {
+                    var column = this;
+                    var select = $('<select><option value="">Selecciona una opción</option></select>')
+                        .appendTo($(column.header()).empty())
+                        .on('change', function () {
+                            var val = $.fn.dataTable.util.escapeRegex($(this).val());
+
+                            column.search(val ? '^' + val + '$' : '', true, false).draw();
+                        });
+
+                    column
+                        .data()
+                        .unique()
+                        .sort()
+                        .each(function (d, j) {
+                            select.append('<option value="' + d + '">' + d + '</option>');
+                        });
+                });
+        },
     });
     /**
      * Evento ver el detalle del ticket/correo
@@ -36,6 +73,7 @@ $(function() {
 
         let url = currentURL;
 
+        let cat_empresa_id = $("#cat_empresa_id").val();
         let asignadoA = $("#asignadoA").val();
         let asignadoPor = $("#asignadoPor").val();
         let area = $("#area").val();
@@ -45,6 +83,7 @@ $(function() {
         let _token = $("input[name=_token]").val();
 
         $.post(url, {
+            cat_empresa_id: cat_empresa_id,
             asignadoA: asignadoA,
             asignadoPor: asignadoPor,
             area: area,
@@ -89,6 +128,7 @@ $(function() {
             reasignar = false;
         }
 
+        let cat_empresa_id = $("#cat_empresa_id").val();
         let estatus = $("#estatus").val();
         let comentario = $("#comentario").val();
         let ticket_id = $("#ticket_id").val();
@@ -98,6 +138,7 @@ $(function() {
         let _method = 'PUT';
 
         $.post(url+'/'+ticket_id, {
+            cat_empresa_id: cat_empresa_id,
             estatus: estatus,
             comentario: comentario,
             ticket_id:ticket_id,

@@ -25,6 +25,7 @@ class TicketsRequest extends FormRequest
     {
 
         return [
+            'cat_empresa_id' => 'required',
             'asignadoA' => 'required',
             'area' => 'required',
             'estatus' => 'required',
@@ -35,6 +36,7 @@ class TicketsRequest extends FormRequest
     public function attributes()
     {
         return[
+            'cat_empresa_id' => 'Empresa',
             'asignadoA' => 'Asignado a',
             'area' => 'Area',
             'estatus' => 'Estatus',

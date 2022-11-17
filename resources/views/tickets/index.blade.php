@@ -13,7 +13,7 @@
                 </div>
 
                 <div class="card-body">
-                    <table id="tableTickets" class="table table-head-fixed text-nowrap">
+                    <table id="tableTickets" class="table table-head-fixed text-nowrap table-striped table-sm">
                         <thead>
                             <tr >
                                 <th class="text-center">Ver Detalle</th>
@@ -21,6 +21,7 @@
                                 <th>Enviado Por</th>
                                 <th>Asunto</th>
                                 <th>Fecha </th>
+                                <th>Area</th>
                                 <th>Asignado A</th>
                             </tr>
                         </thead>
@@ -38,6 +39,14 @@
                                     <td>{{ date('d-m-Y H:i:s', strtotime( $correo->created_at )); }} </td>
                                     <td>
                                         @if ( $correo->ticket()->exists() )
+                                            {{ $correo->ticket()->first()->area()->first()->nombre }}
+                                        @else
+                                            Sin Area
+                                        @endif
+
+                                    </td>
+                                    <td>
+                                        @if ( $correo->ticket()->exists() )
                                             {{ $correo->ticket()->first()->asignado_a()->first()->name }}
                                         @else
                                             Sin asignación
@@ -46,6 +55,17 @@
                                 </tr>
                             @endforeach
                         </tbody>
+                        <tfoot>
+                            <tr >
+                                <th class="text-center">Ver Detalle</th>
+                                <th>ID</th>
+                                <th>Enviado Por</th>
+                                <th>Asunto</th>
+                                <th>Fecha </th>
+                                <th>Area</th>
+                                <th>Asignado A</th>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>

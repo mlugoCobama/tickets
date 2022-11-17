@@ -2,21 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Arr;
+/**
+ * Validaciones de formularios
+ */
 use App\Http\Requests\TicketsRequest;
 use App\Http\Requests\UpdateTicketRequest;
+/**
+ * Plantillas de correos
+ */
 use App\Mail\ActualizacionTicket;
 use App\Mail\NotificacionTicket;
 use App\Mail\ReasignacionTicket;
 use App\Mail\NotificacionTecnicoTicket;
+/**
+ * Modelos
+ */
 use App\Models\AreasModel;
+use App\Models\CatEmpresas;
 use App\Models\ComentariosModel;
 use App\Models\CorreosModel;
 use App\Models\EstatusModel;
 use App\Models\ReasignacionModel;
 use App\Models\TicketsModel;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 class TicketsController extends Controller
 {
     private $tickets;
@@ -26,9 +37,8 @@ class TicketsController extends Controller
     private $comentarios;
     private $estatus;
     private $reasignacion;
-    /**
-     *
-     */
+    private $cat_empresas;
+
     public function __construct(
                                     TicketsModel $tickets,
                                     AreasModel $areas,
@@ -36,7 +46,8 @@ class TicketsController extends Controller
                                     User $user,
                                     ComentariosModel $comentarios,
                                     EstatusModel $estatus,
-                                    ReasignacionModel $reasignacion
+                                    ReasignacionModel $reasignacion,
+                                    CatEmpresas $cat_empresas
                                     )
     {
         $this->tickets = $tickets;
@@ -46,6 +57,7 @@ class TicketsController extends Controller
         $this->comentarios = $comentarios;
         $this->estatus = $estatus;
         $this->reasignacion = $reasignacion;
+        $this->cat_empresas = $cat_empresas;
     }
     /**
      * Display a listing of the resource.
@@ -54,14 +66,21 @@ class TicketsController extends Controller
      */
     public function index()
     {
-        $misCorreos =  $this->correos->join('tickets', 'tickets.correo_id', '=', 'correos.id')
-                                    ->where('tickets.asignado_a', Auth::id())
-                                    ->orderByDesc('correos.created_at')
-                                    ->get(['correos.*', 'tickets.*']);
+        $usuarioActual = Auth::user();
 
-        $allCorreos =  $this->correos->with('ticket')->orderByDesc('created_at')->get();
+        if ( $usuarioActual->tipo == 1 )
+        {
+            $allCorreos =  $this->correos->with('ticket')->orderByDesc('created_at')->get();
+        }
+        elseif ( $usuarioActual->tipo == 2 )
+        {
+            $allCorreos =  $this->correos->join('tickets', 'tickets.correo_id', '=', 'correos.id')
+                                        ->where('tickets.asignado_a', Auth::id())
+                                        ->orderByDesc('correos.created_at')
+                                        ->get(['correos.*']);
+        }
 
-        return view('tickets.index', compact('allCorreos', 'misCorreos'));
+        return view('tickets.index', compact('allCorreos'));
     }
     /**
      * Store a newly created resource in storage.
@@ -71,6 +90,7 @@ class TicketsController extends Controller
      */
     public function store(TicketsRequest $request)
     {
+        $correo = $this->correos->where('id', $request->correoId)->first();
         /**
          * Se genera el ticket relacionado al correo
          */
@@ -78,6 +98,7 @@ class TicketsController extends Controller
                                 'correo_id' => $request->correoId,
                                 'quien_asigna' =>  $request->asignadoPor,
                                 'asignado_a' =>  $request->asignadoA,
+                                'cat_empresa_id' =>  $request->cat_empresa_id,
                                 'fecha_asignacion' =>  date('Y-m-d H:i:s'),
                                 'area_id' =>  $request->area,
                                 'status' =>  $request->estatus,
@@ -95,17 +116,12 @@ class TicketsController extends Controller
         /**
          * Se envia correo de notificacion al usuario
          */
-        Mail::to('mchlugo@hotmail.com')->send(new NotificacionTicket( $ticket, $comentarios ));
+        Mail::to( Arr::last( explode(' ', $correo->enviado) ))->send(new NotificacionTicket( $ticket, $comentarios ));
         /**
          * Se le envia correo al tecnico asignado
          */
         $tecnico = $this->user->where('id', $request->asignadoA)->first();
         Mail::to($tecnico->email)->send( new NotificacionTecnicoTicket($tecnico, $ticket) );
-        /**
-         * Redirigimos a la ruta index
-         */
-        //return redirect()->route('tickets.index');
-
     }
     /**
      * Display the specified resource.
@@ -116,23 +132,24 @@ class TicketsController extends Controller
     public function show($id)
     {
         $comentarios = array();
+
         $areas = $this->areas->get();
 
         $tecnicos = $this->user->where('tipo', 2)->get();
 
         $estatus = $this->estatus->activo()->get();
 
-        $correo = $this->correos->with('ticket')->where('id', $id)->get();
+        $correo = $this->correos->where('id', $id)->first();
 
-        $ticket = $correo->first()->ticket()->first();
+        $ticket = $this->tickets->where('correo_id', $correo->id)->first();
+
+        $empresas = $this->cat_empresas->get();
 
         if ( !is_null( $ticket ) )
         {
             $comentarios = $this->comentarios->where( 'ticket_id',  $ticket->id )->orderby('created_at', 'desc')->get();
         }
-
-        return view("tickets.show", compact('correo', 'areas', 'tecnicos', 'comentarios', 'estatus'));
-
+        return view("tickets.show", compact('correo', 'areas', 'tecnicos', 'comentarios', 'estatus', 'empresas', 'ticket'));
     }
 
     /**
@@ -217,7 +234,7 @@ class TicketsController extends Controller
             /**
              * Se envia la actualizacion al usuario
              */
-            Mail::to($correo->enviado)->send( new ActualizacionTicket( $comentario) );
+            Mail::to($correo->correo)->send( new ActualizacionTicket( $comentario) );
         }
 
     }
