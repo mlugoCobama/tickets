@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\CorreoPrueba;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use Webklex\IMAP\Facades\Client;
 
@@ -29,12 +31,13 @@ class HomeController extends Controller
 
     public function show()
     {
+        Mail::to('ingmchlugo@gmail.com')->send( new CorreoPrueba() );
+        /*
         $oClient = Client::account('default');
         $oClient->connect();
 
         $aFolder = $oClient->getFolders();
 
-        /*
         $host = "{open.cobama.com.mx:143}";
         $user = "tickets@cobama.com.mx";
         $pass = "Mhtemplos2022+";
