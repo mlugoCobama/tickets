@@ -234,7 +234,7 @@ class TicketsController extends Controller
             /**
              * Se envia la actualizacion al usuario
              */
-            Mail::to($correo->correo)->send( new ActualizacionTicket( $comentario) );
+            Mail::to(Arr::last( explode(' ', $correo->enviado)))->send( new ActualizacionTicket( $comentario) );
         }
 
     }
