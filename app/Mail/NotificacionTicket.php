@@ -35,8 +35,8 @@ class NotificacionTicket extends Mailable
                 ->markdown('mail.notificacion')
                 ->with([
                     'tecnico' => $this->ticket->asignado_a()->first()->name,
-                    'estatus' => $this->comentarios->first()->estatus()->first()->nombre,
-                    'comentario' => $this->comentarios->first()->comentario
+                    'estatus' => $this->comentarios->estatus()->first()->nombre,
+                    'comentario' => $this->comentarios->comentario
                 ]);
     }
 }
