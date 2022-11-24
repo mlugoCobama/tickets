@@ -43,10 +43,10 @@ class HomeController extends Controller
             // Email server settings
             $mail->SMTPDebug = 1;
             $mail->isSMTP();
-            $mail->Host = 'open.cobama.com.mx';             //  smtp host
+            $mail->Host = env('MAIL_HOST');             //  smtp host
             $mail->SMTPAuth = true;
-            $mail->Username = 'tickets@cobama.com.mx';   //  sender username
-            $mail->Password = 'Mhtemplos2022+' ;      // sender password
+            $mail->Username = env('MAIL_USERNAME');   //  sender username
+            $mail->Password = env('MAIL_PASSWORD') ;      // sender password
             $mail->SMTPSecure = 'tls';                  // encryption - ssl/tls
             $mail->Port = 587;                          // port - 587/465
 
