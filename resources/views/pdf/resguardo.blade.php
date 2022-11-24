@@ -21,8 +21,9 @@
         width: 100%;
         clear: both;
     }
+
     .data-id_inventario {
-        margin-top: 110px;
+
         margin-bottom: 1px;
         margin-left: 620px;
         font-weight: bold;
@@ -76,7 +77,7 @@
         border: 2px solid #000;
     }
     .data-firma-titular {
-        margin-top: 310px;
+
         margin-bottom: 1px;
         margin-left: 500px;
     }
@@ -85,7 +86,7 @@
 <img src="{{'data:image/jpeg;base64,' . base64_encode($url_formato)}}" alt="" width="100%" height="100%">
 <div class="cols">
     <div class="col1">
-        <div class="col data-id_inventario">
+        <div class="col data-id_inventario" style=" {{ $empresa == 1 ? 'margin-top: 120px;' : 'margin-top: 110px;'}} ">
             <p class="nombre">{{ $usuario->id }}</p>
         </div>
         <div class="col data-fecha">
@@ -130,7 +131,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="col data-firma-titular">
+        <div class="col data-firma-titular" style=" {{ $empresa == 1 ? 'margin-top: 280px;' : 'margin-top: 310px;'}} ">
             <p class="nombre">{{ $usuario->titular }}</p>
         </div>
     </div>
