@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Mail\CorreoPrueba;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Http\Request;
-use Webklex\IMAP\Facades\Client;
+
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 class HomeController extends Controller
 {
@@ -31,26 +33,44 @@ class HomeController extends Controller
 
     public function show()
     {
-        Mail::to('ingmchlugo@gmail.com')->send( new CorreoPrueba() );
-        /*
-        $oClient = Client::account('default');
-        $oClient->connect();
+        //Mail::to('ingmchlugo@gmail.com')->send( new CorreoPrueba() );
 
-        $aFolder = $oClient->getFolders();
+        require base_path("vendor/autoload.php");
+        $mail = new PHPMailer(true);     // Passing `true` enables exceptions
 
-        $host = "{open.cobama.com.mx:143}";
-        $user = "tickets@cobama.com.mx";
-        $pass = "Mhtemplos2022+";
+        //try {
 
+            // Email server settings
+            $mail->SMTPDebug = 1;
+            $mail->isSMTP();
+            $mail->Host = 'open.cobama.com.mx';             //  smtp host
+            $mail->SMTPAuth = true;
+            $mail->Username = 'tickets@cobama.com.mx';   //  sender username
+            $mail->Password = 'Mhtemplos2022+' ;      // sender password
+            $mail->SMTPSecure = 'tls';                  // encryption - ssl/tls
+            $mail->Port = 587;                          // port - 587/465
 
-        $conn = imap_open($host, $user,$pass) or die("can't connect: " . imap_last_error());
+            $mail->setFrom('tickets@cobama.com.mx', 'Sistema de Tickets');
+            $mail->addAddress('ingmchlugo@gmail.com');
 
-        $mailsNoLeidos = imap_search($conn, 'ALL');
+            $mail->isHTML(true);                // Set email content format to HTML
 
-        echo "<h1> MESSAGE</h1>\n";
-        print_r($mailsNoLeidos);
-        echo "<h1>*************</h1>\n";
-        */
+            $mail->Subject = 'Correo de Prueba';
+            $mail->Body    = 'Hola si te llega este mensaje el correo esta correctamente configurado.';
+
+            // $mail->AltBody = plain text version of email body;
+
+            if( !$mail->send() ) {
+                return "faile Email not sent.";
+            }
+
+            else {
+                return "success Email has been sent.";
+            }
+
+        //} catch (Exception $e) {
+        //     return 'error Message could not be sent.';
+        //}
 
     }
 }
