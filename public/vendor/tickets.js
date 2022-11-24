@@ -2,17 +2,8 @@ $(function() {
 
     let currentURL = window.location.href;
     $("#tableTickets").DataTable({
-        order: [[4, 'desc']],
         columnDefs: [
-            {
-                orderable: true,
-                targets: [1],
-            },
-            {
-                orderable: false,
-                targets: [0,5,6],
-            }
-
+            { type: 'date-euro', targets: 4 },
         ],
         responsive: true,
         scrollX: true,

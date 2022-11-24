@@ -36,7 +36,7 @@
                                     <td>{{ $correo->id }}</td>
                                     <td>{{ $correo->enviado }}</td>
                                     <td>{{ $correo->asunto }}</td>
-                                    <td>{{ date('d-m-Y H:i:s', strtotime( $correo->created_at )); }} </td>
+                                    <td>{{ date('d/m/Y H:i:s', strtotime( $correo->created_at )); }} </td>
                                     <td>
                                         @if ( $correo->ticket()->exists() )
                                             {{ $correo->ticket()->first()->area()->first()->nombre }}
@@ -85,6 +85,7 @@
 
 
 <script src="https://kit.fontawesome.com/7fe718abe6.js" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/plug-ins/1.13.1/sorting/date-euro.js"></script>
 <script src="../../../vendor/tickets.js"></script>
 
 @stop
