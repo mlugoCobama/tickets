@@ -1,7 +1,7 @@
 $(function() {
 
     let currentURL = window.location.href;
-    $("#tableTickets").DataTable({
+    $("table.display").DataTable({
         columnDefs: [
             { type: 'date-euro', targets: 4 },
         ],
@@ -12,7 +12,7 @@ $(function() {
         },
         initComplete: function () {
             this.api()
-                .columns([5,6])
+                .columns([6,7])
                 .every(function () {
                     var column = this;
                     var select = $('<select><option value="">Selecciona una opción</option></select>')

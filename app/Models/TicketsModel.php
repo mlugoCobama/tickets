@@ -39,7 +39,7 @@ class TicketsModel extends Model
 
     public function comentarios()
     {
-        return $this->hasMany(ComentariosModel::class, 'ticke_id', 'id');
+        return $this->hasMany(ComentariosModel::class, 'ticket_id', 'id')->orderBy('created_at', 'desc');
     }
 
 }

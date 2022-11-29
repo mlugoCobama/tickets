@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 /**
  * Validaciones de formularios
  */
@@ -70,17 +71,37 @@ class TicketsController extends Controller
 
         if ( $usuarioActual->tipo == 1 )
         {
-            $allCorreos =  $this->correos->with('ticket')->orderByDesc('created_at')->get();
+            $ticketsNoAsignado = $this->correos
+                                        ->whereNotExists( function ($query) {
+                                            $query->select( 'id' )
+                                                  ->from('tickets')
+                                                  ->whereColumn('tickets.correo_id', 'correos.id');
+                                        })
+                                        ->orderByDesc('created_at')
+                                        ->get();
+
+            $allCorreos = $this->correos
+                                ->whereExists( function ($query) {
+                                    $query->select( 'id' )
+                                        ->from('tickets')
+                                        ->whereColumn('tickets.correo_id', 'correos.id');
+                                })
+                                ->orderByDesc('created_at')
+                                ->get();
         }
         elseif ( $usuarioActual->tipo == 2 )
         {
+
+            $ticketsNoAsignado = collect();
+
             $allCorreos =  $this->correos->join('tickets', 'tickets.correo_id', '=', 'correos.id')
                                         ->where('tickets.asignado_a', Auth::id())
                                         ->orderByDesc('correos.created_at')
                                         ->get(['correos.*']);
         }
 
-        return view('tickets.index', compact('allCorreos'));
+        return view('tickets.index', compact('allCorreos', 'ticketsNoAsignado'));
+
     }
     /**
      * Store a newly created resource in storage.

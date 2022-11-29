@@ -273,16 +273,16 @@ class InventariosController extends Controller
          * Validamos los formularios necesarios
          */
         $this->validarFormulario(
-            $formUsuario,
-            $formCPU,
-            $formMonitor,
-            $formTeclado,
-            $formRegulador,
-            $formTelefonoFijo,
-            $formTelefonoMovil,
-            $formMultifuncional,
-            $formSistemaOperativo,
-            $formOffice
+            $formUsuario
+            //$formCPU,
+            //$formMonitor,
+            //$formTeclado,
+            //$formRegulador,
+            //$formTelefonoFijo,
+            //$formTelefonoMovil,
+            //$formMultifuncional,
+            //$formSistemaOperativo,
+            //$formOffice
         );
         /**
          * Formularios obligatorios y validados
@@ -371,16 +371,16 @@ class InventariosController extends Controller
     }
 
     private function validarFormulario(
-        $formUsuario,
-        $formCPU,
-        $formMonitor,
-        $formTeclado,
-        $formRegulador,
-        $formTelefonoFijo,
-        $formTelefonoMovil,
-        $formMultifuncional,
-        $formSistemaOperativo,
-        $formOffice
+        $formUsuario
+        //$formCPU,
+        //$formMonitor,
+        //$formTeclado,
+        //$formRegulador,
+        //$formTelefonoFijo,
+        //$formTelefonoMovil,
+        //$formMultifuncional,
+        //$formSistemaOperativo,
+        //$formOffice
     )
     {
         /**
@@ -404,9 +404,9 @@ class InventariosController extends Controller
             'extension.required' => 'La extensión es obligatorio',
             'movil.required' => 'El movil es obligatorio',
         ]);
-        /**
+        /*
          * Validar formCPU
-         **/
+         *
         Validator::validate($formCPU, [
             'marca' => 'required',
             'modelo' => 'required',
@@ -422,9 +422,9 @@ class InventariosController extends Controller
             'disco_duro.required' => 'El disco duro del CPU es obligatorio',
             'procesador.required' => 'El procesador del CPU es obligatorio',
         ]);
-        /**
+        /*
          * Validar formMonitor
-         **/
+         *
         Validator::validate($formMonitor, [
             'marca' => 'required',
             'modelo' => 'required',
@@ -434,9 +434,9 @@ class InventariosController extends Controller
             'modelo.required' => 'El modelo del Monitor es obligatorio',
             'no_serie.required' => 'El número de serie del Monitor es obligatorio',
         ]);
-        /**
+        /*
          * Validar formTeclado
-         **/
+         *
         Validator::validate($formTeclado, [
             'marca' => 'required',
             'modelo' => 'required',
@@ -446,9 +446,9 @@ class InventariosController extends Controller
             'modelo.required' => 'El modelo del Teclado es obligatorio',
             'no_serie.required' => 'El número de serie del Teclado es obligatorio',
         ]);
-        /**
+        /*
          * Validar formRegulador
-         **/
+         *
         Validator::validate($formRegulador, [
             'marca' => 'required',
             'modelo' => 'required',
@@ -458,9 +458,9 @@ class InventariosController extends Controller
             'modelo.required' => 'El modelo del Regulador es obligatorio',
             'no_serie.required' => 'El número de serie del Regulador es obligatorio',
         ]);
-        /**
+        /*
          * Validar formTelefonoFijo
-         **/
+         *
         Validator::validate($formTelefonoFijo, [
             'marca' => 'required',
             'modelo' => 'required',
@@ -470,9 +470,9 @@ class InventariosController extends Controller
             'modelo.required' => 'El modelo del Telefono Fijo es obligatorio',
             'no_serie.required' => 'El número de serie del Telefono Fijo es obligatorio',
         ]);
-        /**
+        /*
          * Validar formTelefonoMovil
-         **/
+         *
         Validator::validate($formTelefonoMovil, [
             'marca' => 'required',
             'modelo' => 'required',
@@ -484,9 +484,9 @@ class InventariosController extends Controller
             'no_serie.required' => 'El número de serie del Telefono Movil es obligatorio',
             'caracteristicas.required' => 'El IMEI del Telefono Movil es obligatorio',
         ]);
-        /**
+        /*
          * Validar formMultifuncional
-         **/
+         *
         Validator::validate($formMultifuncional, [
             'marca' => 'required',
             'modelo' => 'required',
@@ -496,9 +496,9 @@ class InventariosController extends Controller
             'modelo.required' => 'El modelo del Multifincional es obligatorio',
             'no_serie.required' => 'El número de serie del Multifincional es obligatorio',
         ]);
-        /**
+        /*
          * Validar formSistemaOperativo
-         **/
+         *
         Validator::validate($formSistemaOperativo, [
             'version' => 'required',
             'licencia' => 'required'
@@ -506,9 +506,9 @@ class InventariosController extends Controller
             'version.required' => 'La Versión del Sistema Operativo es obligatorio',
             'licencia.required' => 'La licencia del Sistema Operativo es obligatorio',
         ]);
-        /**
+        /*
          * Validar formOffice
-         **/
+         *
         Validator::validate($formOffice, [
             'version' => 'required',
             'licencia' => 'required'
@@ -516,5 +516,6 @@ class InventariosController extends Controller
             'version.required' => 'La Versión del Office es obligatorio',
             'licencia.required' => 'La licencia del Office es obligatorio',
         ]);
+        */
     }
 }
