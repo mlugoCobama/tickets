@@ -142,15 +142,15 @@ class InventariosController extends Controller
          */
         $this->validarFormulario(
             $formUsuario,
-            $formCPU,
-            $formMonitor,
-            $formTeclado,
-            $formRegulador,
-            $formTelefonoFijo,
-            $formTelefonoMovil,
-            $formMultifuncional,
-            $formSistemaOperativo,
-            $formOffice
+            //$formCPU,
+            //$formMonitor,
+            //$formTeclado,
+            //$formRegulador,
+            //$formTelefonoFijo,
+            //$formTelefonoMovil,
+            //$formMultifuncional,
+            //$formSistemaOperativo,
+            //$formOffice
         );
 
         $usuario = $this->usuariosEmpresas::create($formUsuario);
