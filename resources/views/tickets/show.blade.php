@@ -49,7 +49,7 @@
 
                     @if (Str::contains($adjuntos[$i], ['jpg', 'jpeg', 'png']))
 
-                        <img src="{{ asset( 'storage/app/public/'.$adjuntos[$i]);}} " class="img-thumbnail" alt="{{$adjuntos[$i]}}">
+                        <img src="{{ asset( 'storage/'.$adjuntos[$i]);}} " class="img-thumbnail" alt="{{$adjuntos[$i]}}">
 
                     @endif
 
