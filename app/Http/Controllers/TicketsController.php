@@ -29,6 +29,8 @@ use App\Models\EstatusModel;
 use App\Models\ReasignacionModel;
 use App\Models\TicketsModel;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
+
 class TicketsController extends Controller
 {
     private $tickets;
@@ -152,11 +154,14 @@ class TicketsController extends Controller
      */
     public function show($id)
     {
+
+        $adjuntos = Storage::disk('public')->allFiles($id);
+
         $comentarios = array();
 
         $areas = $this->areas->get();
 
-        $tecnicos = $this->user->where('tipo', 2)->get();
+        $tecnicos = $this->user->get();
 
         $estatus = $this->estatus->activo()->get();
 
@@ -170,7 +175,7 @@ class TicketsController extends Controller
         {
             $comentarios = $this->comentarios->where( 'ticket_id',  $ticket->id )->orderby('created_at', 'desc')->get();
         }
-        return view("tickets.show", compact('correo', 'areas', 'tecnicos', 'comentarios', 'estatus', 'empresas', 'ticket'));
+        return view("tickets.show", compact('correo', 'areas', 'tecnicos', 'comentarios', 'estatus', 'empresas', 'ticket', 'adjuntos'));
     }
 
     /**

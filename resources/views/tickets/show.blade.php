@@ -37,6 +37,27 @@
             </div>
         </div>
     </div>
+
+    <div class="card card-outline card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Archivos Adjuntos </h3>
+        </div>
+        <div class="card-body " >
+
+            <ul class="list-group list-group-flush">
+                @for ($i = 0; $i < count($adjuntos); $i++)
+
+                    @if (Str::contains($adjuntos[$i], ['jpg', 'jpeg', 'png']))
+
+                        <img src="{{ asset( 'storage/app/public/'.$adjuntos[$i]);}} " class="img-thumbnail" alt="{{$adjuntos[$i]}}">
+
+                    @endif
+
+                @endfor
+            </ul>
+
+        </div>
+    </div>
 </div>
 <div class="col-12">
     <div class="card card-outline card-primary">

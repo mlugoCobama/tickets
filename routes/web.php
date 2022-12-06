@@ -24,16 +24,16 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/correoPrueba', [App\Http\Controllers\HomeController::class, 'show'])->name('show');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
+Route::get('/correoPrueba', [App\Http\Controllers\HomeController::class, 'show'])->name('show')->middleware('auth');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
 
-Route::get('/confirmar-reasignacion/{id}', [App\Http\Controllers\mailConnectionController::class, 'show']);
-Route::get('/inventario/resguardo/{id}', [App\Http\Controllers\PDFResguardoController::class, 'show']);
+Route::get('/confirmar-reasignacion/{id}', [App\Http\Controllers\mailConnectionController::class, 'show'])->middleware('auth');
+Route::get('/inventario/resguardo/{id}', [App\Http\Controllers\PDFResguardoController::class, 'show'])->middleware('auth');
 
-Route::resource('tickets', TicketsController::class);
-Route::resource('estatus', EstatusController::class);
-Route::resource('areas', AreasController::class);
-Route::resource('usuarios', UserController::class);
-Route::resource('inventario', InventariosController::class);
+Route::resource('tickets', TicketsController::class)->middleware('auth');
+Route::resource('estatus', EstatusController::class)->middleware('auth');
+Route::resource('areas', AreasController::class)->middleware('auth');
+Route::resource('usuarios', UserController::class)->middleware('auth');
+Route::resource('inventario', InventariosController::class)->middleware('auth');
