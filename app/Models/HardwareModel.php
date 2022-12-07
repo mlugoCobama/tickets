@@ -36,4 +36,9 @@ class HardwareModel extends Model
     {
         return $this->hasOne(CatHardware::class, 'id', 'cat_hardware_id');
     }
+
+    public function usuario()
+    {
+        return $this->belongsTo(UsuariosEmpresasModel::class, 'id', 'usuario_empresa_id');
+    }
 }

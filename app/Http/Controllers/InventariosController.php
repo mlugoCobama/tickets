@@ -54,11 +54,15 @@ class InventariosController extends Controller
     public function index()
     {
         /**
+         * Obtenemos todo el catalago de empresas
+         */
+        $empresas = $this->catEmpresas->get();
+        /**
          * Obtenemos los usuarios activos
          */
         $usuarios = $this->usuariosEmpresas->where('activo', 1)->with('empresa')->get();
 
-        return view('inventarios.index', compact('usuarios'));
+        return view('inventarios.index', compact('usuarios', 'empresas'));
     }
 
     /**

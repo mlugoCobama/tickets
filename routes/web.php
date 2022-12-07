@@ -31,6 +31,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/confirmar-reasignacion/{id}', [App\Http\Controllers\mailConnectionController::class, 'show'])->middleware('auth');
 Route::get('/inventario/resguardo/{id}', [App\Http\Controllers\PDFResguardoController::class, 'show'])->middleware('auth');
+Route::get('/inventario/generar_reporte/{id}', [App\Http\Controllers\PDFInventarioController::class, 'index'])->middleware('auth');
 
 Route::resource('tickets', TicketsController::class)->middleware('auth');
 Route::resource('estatus', EstatusController::class)->middleware('auth');

@@ -16,7 +16,8 @@
                         <button type="button" class="btn btn-danger btn-sm deleteInventario" style="display:none"><i class="fas fa-trash-alt"></i> Elminar</button>
                         <button type="button" class="btn btn-warning btn-sm editInventario" style="display:none"><i class="fas fa-edit"></i> Editar</button>
                         <button type="button" class="btn btn-info btn-sm showInventario" style="display:none"><i class="fa-solid fa-eye"></i></i> Ver Detalle</button>
-                        <button id="newInventario" type="button" class="btn btn-primary btn-sm"><i class="fa-solid fa-circle-plus"></i> Nuevo</button>
+                        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#modalReporte"><i class="fa-solid fa-file-pdf"></i></i> Generar Reporte</button>
+                        <button type="button" class="btn btn-primary btn-sm" id="newInventario" ><i class="fa-solid fa-circle-plus"></i> Nuevo</button>
                         <input type="hidden" name="idSeleccionado" id="idSeleccionado" value="">
 
                     </div>
@@ -79,7 +80,33 @@
         </div>
     </div>
     <!-- FIN MODAL -->
-
+    <div class="modal fade" tabindex="-1" id="modalReporte" >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Generar Reporte</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col">
+                        <label for="cat_empresa_id">Empresa *:</label>
+                        <select name="cat_empresa_id" id="cat_empresa_id" class="form-control form-control-sm">
+                            <option value="">Selecciona una empresa</option>
+                            @foreach ($empresas as $e)
+                                <option value="{{$e->id}}">{{ $e->nombre }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times"></i> Cerrar</button>
+                    <button type="button" class="btn btn-primary" id="generarReporte">Generar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @stop
 
 @section('css')

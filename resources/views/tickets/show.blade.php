@@ -44,7 +44,7 @@
         </div>
         <div class="card-body " >
 
-            <ul class="list-group list-group-flush">
+
                 @for ($i = 0; $i < count($adjuntos); $i++)
 
                     @if (Str::contains($adjuntos[$i], ['jpg', 'jpeg', 'png']))
@@ -54,7 +54,6 @@
                     @endif
 
                 @endfor
-            </ul>
 
         </div>
     </div>

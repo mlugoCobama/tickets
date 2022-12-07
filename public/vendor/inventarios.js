@@ -146,6 +146,24 @@ $(function() {
         });
     });
     /**
+     * Evento para generar reporte
+     */
+     $(document).on("click", "#generarReporte", function(e) {
+        e.preventDefault();
+
+        let idEmpresa =  $("#cat_empresa_id").val();
+
+        let url = currentURL+"/generar_reporte/"+idEmpresa
+
+        var win = window.open(url, '_blank');
+
+        win.focus();
+
+        $('#modalReporte').modal('hide');
+        $('.modal-backdrop ').css('display', 'none');
+
+    });
+    /**
      * Evento para regresar
      */
      $(document).on("click", ".regresar", function(e) {
