@@ -44,16 +44,47 @@
         </div>
         <div class="card-body " >
 
+            <ul class="list-group">
 
                 @for ($i = 0; $i < count($adjuntos); $i++)
 
                     @if (Str::contains($adjuntos[$i], ['jpg', 'jpeg', 'png']))
 
-                        <img src="{{ asset( 'storage/'.$adjuntos[$i]);}} " class="img-thumbnail" alt="{{$adjuntos[$i]}}">
+                        <li class="list-group-item" style="cursor: pointer">
+                            <img src="{{ asset('storage/'.$adjuntos[$i]) }}">
+                        </li>
+
+                    @elseif( Str::contains($adjuntos[$i], ['pdf']) )
+
+                        <li class="list-group-item" style="cursor: pointer">
+                            <a href="{{ asset('storage/'.$adjuntos[$i]) }}" target="_blank">
+                                <i class="fa-solid fa-file-pdf"></i>
+                                {{ $adjuntos[$i] }}
+                            </a>
+                        </li>
+
+                    @elseif( Str::contains($adjuntos[$i], ['doc', 'docx']) )
+
+                        <li class="list-group-item" style="cursor: pointer">
+                            <a href="{{ asset('storage/'.$adjuntos[$i]) }}" target="_blank">
+                                <i class="fa-solid fa-file-word"></i>
+                                {{ $adjuntos[$i] }}
+                            </a>
+                        </li>
+
+                    @elseif( Str::contains($adjuntos[$i], ['xls', 'xlsx']) )
+
+                        <li class="list-group-item" style="cursor: pointer">
+                            <a href="{{ asset('storage/'.$adjuntos[$i]) }}" target="_blank">
+                                <i class="fa-solid fa-file-excel"></i>
+                                {{ $adjuntos[$i] }}
+                            </a>
+                        </li>
 
                     @endif
 
                 @endfor
+            </ul>
 
         </div>
     </div>
