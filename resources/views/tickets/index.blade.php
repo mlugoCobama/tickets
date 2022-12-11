@@ -117,7 +117,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($allCorreos as $correo)
-                                        @if ($correo->ticket()->first()->comentarios()->first()->estatus()->first()->id != 9)
+                                        @if ($correo->ticket()->first()->status != 9)
 
                                             <tr>
                                                 <td class="text-center">
@@ -185,7 +185,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($allCorreos as $correo)
-                                        @if ($correo->ticket()->first()->comentarios()->first()->estatus()->first()->id == 9)
+                                        @if ($correo->ticket()->first()->status == 9)
 
                                             <tr>
                                                 <td class="text-center">

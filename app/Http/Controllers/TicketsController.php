@@ -161,7 +161,7 @@ class TicketsController extends Controller
 
         $areas = $this->areas->get();
 
-        $tecnicos = $this->user->get();
+        $tecnicos = $this->user->where('activo', 1)->get();
 
         $estatus = $this->estatus->activo()->get();
 
@@ -243,6 +243,10 @@ class TicketsController extends Controller
              * Recuperamos el correo
              */
             $correo = $this->correos->where('id', $ticket->correo_id)->first();
+            /**
+             * Actualizamos el ultimo estatus al ticket
+             */
+            $this->tickets::where('id', $id)->update(['estatus' => $request->estatus]);
             /**
              * Se guarda el comentario del ticket
              */

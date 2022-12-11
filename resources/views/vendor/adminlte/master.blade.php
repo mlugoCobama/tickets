@@ -39,8 +39,6 @@
         <link rel="stylesheet" href="{{ mix(config('adminlte.laravel_mix_css_path', 'css/app.css')) }}">
     @endif
 
-    <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/ekko-lighbox.css') }}">
-
     {{-- Livewire Styles --}}
     @if(config('adminlte.livewire'))
         @if(app()->version() >= 7)
@@ -96,8 +94,6 @@
     @else
         <script src="{{ mix(config('adminlte.laravel_mix_js_path', 'js/app.js')) }}"></script>
     @endif
-
-    <script src="{{ asset('vendor/adminlte/dist/js/ekko-lightbox.min.js') }}"></script>
 
     {{-- Livewire Script --}}
     @if(config('adminlte.livewire'))

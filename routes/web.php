@@ -25,6 +25,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
+Route::get('/home/{id}', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
+Route::post('/home/reporte_tickets', [App\Http\Controllers\PDFReporteTicketsController::class, 'index'])->name('reporte_tickets')->middleware('auth');
 Route::get('/correoPrueba', [App\Http\Controllers\HomeController::class, 'show'])->name('show')->middleware('auth');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
