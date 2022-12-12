@@ -52,6 +52,7 @@ class HomeController extends Controller
 
     public function show()
     {
+        /*
         $tickets = \DB::select('SELECT ticket_id, MAX(estatus_id) as estatus FROM comentarios WHERE ticket_id in ( select id from tickets where tickets.id = comentarios.ticket_id )  group by ticket_id;');
         $i = 1;
         foreach ($tickets as $item ) {
@@ -63,7 +64,7 @@ class HomeController extends Controller
 
             $i++;
         }
-
-        //Mail::to('ingmchlugo@gmail.com')->send( new CorreoPrueba() );
+        */
+        Mail::to('ingmchlugo@gmail.com')->send( new CorreoPrueba() );
     }
 }
