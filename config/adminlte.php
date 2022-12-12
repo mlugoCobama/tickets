@@ -284,6 +284,7 @@ return [
         [
             'text'    => 'Configuración',
             'icon'    => 'fa-solid fa-gear',
+            'can'    => 'view config',
             'submenu' => [
                 [
                     'text' => 'Estatus',

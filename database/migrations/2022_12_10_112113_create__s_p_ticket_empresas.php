@@ -14,15 +14,16 @@ return new class extends Migration
     public function up()
     {
         \DB::unprepared("
-            CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ticket_empresas`()
+            DROP PROCEDURE IF EXISTS SP_ticket_empresas;
+            CREATE DEFINER=`user_sistema_tickets`@`localhost` PROCEDURE `SP_ticket_empresas`()
             BEGIN
                 SELECT
                     E.nombre,
                     COUNT(DISTINCT T.correo_id) AS total
                 FROM
-                    cat_empresas as E
+                    cat_empresas E
                 INNER JOIN
-                    tickets as T
+                    tickets T
                 ON
                     T.cat_empresa_id = E.id
                 GROUP BY

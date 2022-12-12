@@ -14,7 +14,8 @@ return new class extends Migration
     public function up()
     {
         \DB::unprepared("
-            CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ticket_tecnicos`( IN cat_empresa_id INT )
+            DROP PROCEDURE IF EXISTS SP_ticket_tecnicos;
+            CREATE DEFINER=`user_sistema_tickets`@`localhost` PROCEDURE `SP_ticket_tecnicos`( IN cat_empresa_id INT )
             BEGIN
                 IF cat_empresa_id=0
                     THEN
@@ -22,9 +23,9 @@ return new class extends Migration
                             U.name,
                             COUNT(DISTINCT T.correo_id) AS total
                         FROM
-                            users as U
+                            users U
                         INNER JOIN
-                            tickets as T
+                            tickets T
                         ON
                             T.asignado_a = U.id
                         GROUP BY
@@ -34,9 +35,9 @@ return new class extends Migration
                             U.name,
                             COUNT(DISTINCT T.correo_id) AS total
                         FROM
-                            users as U
+                            users U
                         INNER JOIN
-                            tickets as T
+                            tickets T
                         ON
                             T.asignado_a = U.id
                         AND T.cat_empresa_id = cat_empresa_id

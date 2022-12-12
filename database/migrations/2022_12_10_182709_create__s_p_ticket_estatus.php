@@ -14,7 +14,8 @@ return new class extends Migration
     public function up()
     {
         \DB::unprepared("
-            CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ticket_estatus`( IN cat_empresa_id INT )
+            DROP PROCEDURE IF EXISTS SP_ticket_estatus;
+            CREATE DEFINER=`user_sistema_tickets`@`localhost` PROCEDURE `SP_ticket_estatus`( IN cat_empresa_id INT )
             BEGIN
                 IF cat_empresa_id=0
                     THEN
