@@ -246,7 +246,7 @@ class TicketsController extends Controller
             /**
              * Actualizamos el ultimo estatus al ticket
              */
-            $this->tickets::where('id', $id)->update(['estatus' => $request->estatus]);
+            $this->tickets::where('id', $id)->update(['status' => $request->estatus]);
             /**
              * Se guarda el comentario del ticket
              */
