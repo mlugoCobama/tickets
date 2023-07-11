@@ -17,9 +17,9 @@
     }
 
     img {
-        width: 25%;
+        width: 20%;
         float: right;
-
+        margin-top: -35px;
     }
 
 </style>
@@ -34,7 +34,44 @@
 <p> Fecha: {{ date('d-m-Y') }}</p>
 
 <br>
+<br>
 
+<table id="datosHardware" >
+    <thead>
+        <tr>
+            <th>Area</th>
+            <th width="30px">Puesto</th>
+            <th>UcoIP</th>
+            <th>Tipo</th>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Número Serie</th>
+            <th>Memoria RAM</th>
+            <th>Disco Duro</th>
+            <th>Procesador</th>
+            <th>Caracteristicas</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($datosReporte as $item)
+            <tr>
+                <td>{{ $item->area }}</td>
+                <td>{{ $item->puesto }}</td>
+                <td>{{ $item->ucoip }}</td>
+                <td>{{ $item->tipo }}</td>
+                <td>{{ $item->marca }}</td>
+                <td>{{ $item->modelo }}</td>
+                <td>{{ $item->no_serie }}</td>
+                <td>{{ $item->memoria_ram }}</td>
+                <td>{{ $item->disco_duro }}</td>
+                <td>{{ $item->procesador }}</td>
+                <td>{{ $item->caracteristicas }}</td>
+            </tr>
+        @endforeach
+    </tbody>
+</table>
+
+{{--
 <h2>Hardware</h2>
 
 @foreach ($hardware as $h)
@@ -163,4 +200,4 @@
         @endforelse
     </tbody>
 </table>
-
+--}}

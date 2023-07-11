@@ -15,3 +15,4 @@ yarn-error.log
 /.idea
 /.vscode
 /.scannerwork
+._docker-compose.yml

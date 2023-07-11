@@ -1,4 +1,4 @@
-$(function() {
+$
 
     let currentURL = window.location.href;
     $("table.display").DataTable({

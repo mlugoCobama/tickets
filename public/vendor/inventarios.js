@@ -152,15 +152,41 @@ $(function() {
         e.preventDefault();
 
         let idEmpresa =  $("#cat_empresa_id").val();
+        let _token = $("input[name=_token]").val();
 
-        let url = currentURL+"/generar_reporte/"+idEmpresa
+        if (idEmpresa != 0) {
+            let urlReporte = currentURL+"/generar_reporte_filtros"
 
-        var win = window.open(url, '_blank');
+            let area = $("#cat_area_id").val();
+            let puesto = $("#cat_puesto_id").val();
+            let ucoip = $("#cat_ucoip_id").val();
 
-        win.focus();
+            $.ajax({
+                url: urlReporte,
+                type: 'POST',
+                data: {
+                    _token: _token,
+                    empresa_id: idEmpresa,
+                    area: area,
+                    puesto: puesto,
+                    ucoip: ucoip
+                },
+                success: function(result) {
+                    console.log(result);
+                }
+            });
 
-        $('#modalReporte').modal('hide');
-        $('.modal-backdrop ').css('display', 'none');
+            let url = currentURL+"/generar_reporte/"+idEmpresa
+
+            var win = window.open(url, '_blank');
+
+            win.focus();
+
+            $('#modalReporte').modal('hide');
+            $('.modal-backdrop ').css('display', 'none');
+        } else {
+            alert("Debes seleccionar una empresa");
+        }
 
     });
     /**
@@ -330,6 +356,49 @@ $(function() {
         window.open(url, '_blank');
 
     });
+
+    $(document).on('change', '#cat_empresa_id', function(event) {
+
+        let idEmpresa =  $("#cat_empresa_id").val();
+
+        if (idEmpresa != 0) {
+            $(".otrosFiltros").slideDown();
+            let url = currentURL+"/generar_filtros/"+idEmpresa;
+            $.get(url, function(data, textStatus, jqXHR) {
+
+                if (data.success) {
+                    $("#cat_area_id").empty();
+                    $("#cat_puesto_id").empty();
+                    $("#cat_ucoip_id").empty();
+
+                    let areas = data.data.areas;
+                    let puestos = data.data.puestos;
+                    let ucoips = data.data.ucoip;
+
+                    $("#cat_area_id").append("<option value=' '>Selecciona una opción</option>");
+                    areas.forEach(element => {
+                        $("#cat_area_id").append("<option value='"+element.area+"'>"+element.area+"</option>");
+                    });
+
+                    $("#cat_puesto_id").append("<option value=' '>Selecciona una opción</option>");
+                    puestos.forEach(element => {
+                        $("#cat_puesto_id").append("<option value='"+element.puesto+"'>"+element.puesto+"</option>");
+                    });
+
+                    $("#cat_ucoip_id").append("<option value=' '>Selecciona una opción</option>");
+                    ucoips.forEach(element => {
+                        $("#cat_ucoip_id").append("<option value='"+element.ucoip+"'>"+element.ucoip+"</option>");
+                    });
+                }
+
+            });
+        } else {
+            $(".otrosFiltros").slideUp();
+        }
+
+    });
+
+
     /**
      * Funcion para mostrar los errores de los formularios
      */

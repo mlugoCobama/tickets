@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use PDF;
 /**
  * Modelos
@@ -100,5 +102,38 @@ class PDFInventarioController extends Controller
         return PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])
         ->loadView('pdf.inventario', compact('hardware', 'software', 'recursos', 'empresa', 'inventarioHardware', 'inventarioSoftware', 'inventarioRecursos', 'url_logo'))
         ->stream('inventario_'.$id.'.pdf');
+    }
+
+    function reporte_filtros( int $empresa_id, string $area, string $puesto, string $ucoip) {
+
+        ini_set('memory_limit', '512M');
+        /**
+         * Obtenemos la empresa de la cual se esta haciendo el reporte
+         */
+        $empresa = $this->catEmpresas->where('id', $empresa_id)->first();
+
+        $datosReporte = DB::select("CALL SP_reporte_inventario(".$empresa_id.",".$area.",".$puesto.",".$ucoip.")");
+        /**
+         * obtenemos el log de la empresa
+         */
+        /**
+         * Obtenemos el codigo de la foto de fondo
+         */
+        if ( $contains = Str::contains($empresa->dominio, ['renault', 'Renault']) )
+        {
+            $url_logo = file_get_contents(public_path('vendor/adminlte/dist/img/logo_renault.png'));
+        }
+        else
+        {
+            $url_logo = file_get_contents(public_path('vendor/adminlte/dist/img/logo_nissan.jpeg'));
+        }
+
+
+        return PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])
+        ->setPaper('a4', 'landscape')
+        ->setWarnings(false)
+        ->loadView('pdf.inventarioFiltro', compact('datosReporte', 'url_logo', 'empresa'))
+        ->stream('inventario_'.$empresa_id.'.pdf');
+
     }
 }

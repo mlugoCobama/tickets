@@ -1,1 +1,2 @@
 *.sqlite*
+._.DS_Store

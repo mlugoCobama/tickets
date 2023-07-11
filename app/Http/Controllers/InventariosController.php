@@ -522,4 +522,34 @@ class InventariosController extends Controller
         ]);
         */
     }
+
+    function getfiltros($id) {
+        $response['areas'] = $this->usuariosEmpresas
+                            ->select('area')
+                            ->distinct()
+                            ->where('cat_empresa_id', $id)
+                            ->orderBy('area')
+                            ->get();
+
+        $response['puestos'] = $this->usuariosEmpresas
+                            ->select('puesto')
+                            ->distinct()
+                            ->where('cat_empresa_id', $id)
+                            ->orderBy('puesto')
+                            ->get();
+
+        $response['ucoip'] = $this->usuariosEmpresas
+                            ->select('ucoip')
+                            ->distinct()
+                            ->where('cat_empresa_id', $id)
+                            ->orderBy('ucoip')
+                            ->get();
+
+        return response()
+                        ->json([
+                            'success' => true,
+                            'message' => '',
+                            'data'    => $response
+                        ]);
+    }
 }
