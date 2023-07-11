@@ -160,7 +160,7 @@ $(function() {
             let area = $("#cat_area_id").val();
             let puesto = $("#cat_puesto_id").val();
             let ucoip = $("#cat_ucoip_id").val();
-
+            /*
             $.ajax({
                 url: urlReporte,
                 type: 'POST',
@@ -175,10 +175,12 @@ $(function() {
                     console.log(result);
                 }
             });
+            */
+            //let url = currentURL+"/generar_reporte/"+idEmpresa
 
-            let url = currentURL+"/generar_reporte/"+idEmpresa
-
-            var win = window.open(url, '_blank');
+            //const urlObj = new URL(currentURL + "/generar_reporte_filtros/"+idEmpresa+"/'"+area+"'/'"+puesto+"'/'"+ucoip+"'")
+            let url = currentURL + "/generar_reporte_filtros/"+idEmpresa+"/'"+area+"'/'"+puesto+"'/'"+ucoip+"'";
+            var win = window.open( url.replace(/%20/g, " ") , '_blank');
 
             win.focus();
 

@@ -112,6 +112,10 @@ class PDFInventarioController extends Controller
          */
         $empresa = $this->catEmpresas->where('id', $empresa_id)->first();
 
+        $area = str_replace(" ", "", $area);
+        $puesto = str_replace(" ", "", $puesto);
+        $ucoip = str_replace(" ", "", $ucoip);
+
         $datosReporte = DB::select("CALL SP_reporte_inventario(".$empresa_id.",".$area.",".$puesto.",".$ucoip.")");
         /**
          * obtenemos el log de la empresa
