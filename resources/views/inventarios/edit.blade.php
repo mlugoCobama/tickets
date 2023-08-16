@@ -108,15 +108,33 @@
                                                     <form id="formCPU">
                                                         <div class="row">
                                                             <div class="col">
+                                                                <input type="hidden" name="cat_hardware_id" id="cat_hardware_id" value="{{$h->id}}">
+                                                                <label for="tipo">Tipo *:</label>
+                                                                <select class="form-control form-control-sm" name="tipo" id="tipo">
+                                                                    <option value="" selected>Seleccióna una opción</option>
+                                                                    <option value="1">CPU/Torre</option>
+                                                                    <option value="2">Laptop</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col">
                                                                 <input type="hidden" id="id" name="id" value="{{$datos->first()->id}}">
                                                                 <label for="marca">Marca *:</label>
                                                                 <input type="text" class="form-control form-control-sm" id="marca" name="marca" placeholder="Marca" value="{{$datos->first()->marca}}">
                                                             </div>
+                                                        </div><!--div.row-->
+
+                                                        <div class="row">
                                                             <div class="col">
                                                                 <label for="modelo">Modelo *:</label>
                                                                 <input type="text" class="form-control form-control-sm" id="modelo" name="modelo" placeholder="Modelo" value="{{$datos->first()->modelo}}">
                                                             </div>
-                                                        </div><!--div.row-->
+                                                            <div class="col">
+                                                                <label for="modelo">MAC Address *:</label>
+                                                                <input type="text" class="form-control form-control-sm" id="mac" name="mac" placeholder="MAC Address" value="{{$datos->first()->mac}}">
+                                                            </div>
+
+                                                        </div>
+
                                                         <div class="row">
                                                             <div class="col">
                                                                 <label for="no_serie">Número de Serie *:</label>
@@ -173,6 +191,12 @@
                                                             <label for="no_serie">Número de Serie *:</label>
                                                             <input type="text" class="form-control form-control-sm" id="no_serie" name="no_serie" placeholder="Número de Serie" value="{{ $datos->first()->no_serie }}">
                                                         </div>
+                                                        @if ($h->id == 8 || $h->id == 10)
+                                                        <div class="col">
+                                                            <label for="caracteristicas"> MAC Address *:</label>
+                                                            <input type="text" class="form-control form-control-sm" id="mac" name="mac" placeholder="MAC Address" value="{{$datos->first()->mac}}">
+                                                        </div>
+                                                    @endif
                                                         <div class="col">
                                                             <label for="caracteristicas">{{ $h->id == 8 ? 'IMEI' : 'Caracteristicas'}} :</label>
                                                             <input type="text" class="form-control form-control-sm" id="caracteristicas" name="caracteristicas" placeholder="Caracteristicas" value="{{ $datos->first()->caracteristicas }}">

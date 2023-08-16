@@ -13,6 +13,8 @@ class HardwareModel extends Model
         'marca',
         'modelo',
         'no_serie',
+        'mac',
+        'tipo',
         'memoria_ram',
         'disco_duro',
         'procesador',
