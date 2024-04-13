@@ -302,6 +302,28 @@ return [
                     'icon' => 'fa-solid fa-layer-group'
                 ],
             ],
+        ],
+        [
+            'text'    => 'Recursos Tecnologicos',
+            'icon'    => 'fas fa-laptop-house',
+            'can'    => 'view config',
+            'submenu' => [
+                [
+                    'text' => 'Dominios',
+                    'url'  => 'dominios',
+                    'icon' => 'fas fa-network-wired',
+                ],
+                [
+                    'text' => 'Ademdum',
+                    'url'  => 'ademdum',
+                    'icon' => 'fas fa-mobile-alt'
+                ],
+                [
+                    'text' => 'Proveedores',
+                    'url'  => 'proveedores',
+                    'icon' => 'fas fa-people-carry'
+                ],
+            ],
         ]
     ],
 

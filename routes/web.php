@@ -3,8 +3,10 @@
 use App\Http\Controllers\TicketsController;
 use App\Http\Controllers\EstatusController;
 use App\Http\Controllers\AreasController;
+use App\Http\Controllers\DominiosController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\InventariosController;
+use App\Http\Controllers\ProveedoresController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,3 +44,5 @@ Route::resource('estatus', EstatusController::class)->middleware('auth');
 Route::resource('areas', AreasController::class)->middleware('auth');
 Route::resource('usuarios', UserController::class)->middleware('auth');
 Route::resource('inventario', InventariosController::class)->middleware('auth');
+Route::resource('proveedores', ProveedoresController::class)->middleware('auth');
+Route::resource('dominios', DominiosController::class)->middleware('auth');
